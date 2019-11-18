@@ -14,14 +14,14 @@ public:
 			   //1.0f, -1.0f, 0.0f,
 			   //1.0f,  1.0f, 0.0f,
 			//top left triangle of quad
-			   -1.0f,  1.0f, 0.0f,
-			   -1.f,  -1.f, 0.0f,
-			   1.f,  1.f, 0.0f,
-			   1.f,  -1.f, 0.0f
+			   -.5f,  .5f, 0.0f,
+			   -.5f,  -.5f, 0.0f,
+			   .5f,  .5f, 0.0f,
+			   .5f,  -.5f, 0.0f
 		};
 
-		int indices[3] = {
-			//0,1,2,
+		int indices[6] = {
+			0,1,2,
 			1,3,2
 		};
 		Loader* loader = new Loader();
