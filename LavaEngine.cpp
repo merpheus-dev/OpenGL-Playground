@@ -3,6 +3,7 @@
 #include "Renderer.cpp"
 #include "DisplayAdapter.cpp"
 #include "VertexData.cpp"
+#include "ShaderBank.cpp"
 class LavaEngine {
 public:
 	static void bootstrap() {
@@ -29,14 +30,18 @@ public:
 		Lava::IndiceData* indice_data = new Lava::IndiceData(indices,sizeof(indices)/sizeof(indices[0]));
 		Model model = loader->loadModel(*vertex_data,*indice_data);
 		Renderer* renderer = new Renderer();
-
+		ShaderBank* bank = new ShaderBank("vertexShader.vp", "fragmentShader.fp");
+		bank->BindAttribute(0, "position");
+		
 		while (!display->isWindowClosed())
 		{
 			renderer->prepare();
+			bank->Activate();
 			renderer->render(&model);
+			bank->Deactivate();
 			display->updateWindow();
 		}
-
+		bank->Dispose();
 		display->destroyWindow();
 	}
 };
