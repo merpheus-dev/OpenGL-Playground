@@ -1,6 +1,6 @@
 #version 400 core
 
-in vec3 pass_textureCoords;
+in vec2 pass_textureCoords;
 out vec4 output_color;
 uniform sampler2D textureSampler;
 
