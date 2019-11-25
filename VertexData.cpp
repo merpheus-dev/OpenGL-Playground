@@ -30,4 +30,29 @@ namespace Lava
 		}
 	};
 #endif
+
+#ifndef TexData_Obj
+#define TexData_Obj
+	struct TextureData {
+	public:
+		int width;
+		int height;
+		int normalChannelCount;
+		unsigned char* data;
+		unsigned int textureId;
+	};
+#endif
+
+#ifndef TexCoord_Obj
+#define TexCoord_Obj
+	struct TextureCoordinate {
+		float* coords;
+		int size;
+		TextureCoordinate(float* coords,int size)
+		{
+			this->coords = coords;
+			this->size = size;
+		}
+	};
+#endif
 }
