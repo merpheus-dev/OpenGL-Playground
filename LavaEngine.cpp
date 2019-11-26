@@ -18,13 +18,13 @@ public:
 			//top left triangle of quad
 			   -.5f,  .5f, 0.0f,
 			   -.5f,  -.5f, 0.0f,
-			   .5f,  .5f, 0.0f,
-			  .5f,  -.5f, 0.0f
+			   .5f,  -.5f, 0.0f,
+			  .5f,  .5f, 0.0f
 		};
 
 		int indices[6] = {
-			0,1,2,
-			1,3,2
+			0,1,3,
+			3,1,2
 		};
 
 		float texCoords[8] = {

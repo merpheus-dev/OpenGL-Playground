@@ -10,7 +10,7 @@ public:
 			return nullptr;
 		//return -1;
 
-		window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+		window = glfwCreateWindow(512, 512, "Lava Window", NULL, NULL);
 		if (!window)
 		{
 			glfwTerminate();

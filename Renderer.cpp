@@ -4,7 +4,7 @@
 class Renderer {
 public:
 	void prepare() {
-		glClearColor(1, 1, 0, 1);
+		glClearColor(0,0,0, 1);
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
@@ -13,7 +13,7 @@ public:
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, renderData->texture->textureId);
+		glBindTexture(GL_TEXTURE_2D, renderData->texture.textureId);
 		glDrawElements(GL_TRIANGLES, renderData->mesh->vertexCount, GL_UNSIGNED_INT, 0);
 		//glDrawArrays(GL_TRIANGLES, 0, model->vertexCount);
 		glDisableVertexAttribArray(0);

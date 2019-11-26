@@ -8,8 +8,8 @@ namespace Lava
 	{
 	public:
 		Model* mesh;
-		TextureData* texture;
-		MeshRendererData(Model* mesh, TextureData* texture)
+		TextureData texture;
+		MeshRendererData(Model* mesh, TextureData texture)
 		{
 			this->mesh = mesh;
 			this->texture = texture;

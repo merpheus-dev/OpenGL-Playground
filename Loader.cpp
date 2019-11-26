@@ -12,7 +12,8 @@ private:
 	unsigned int vertexBuffer;
 	unsigned int indicesBuffer;
 	unsigned int texture;
-
+	Lava::TextureData textureData;
+	
 	void initVertexAttribObjects() {
 		glGenVertexArrays(1, &vertexArrayObject);
 		glBindVertexArray(vertexArrayObject);
@@ -40,7 +41,6 @@ private:
 	Lava::TextureData loadTexture(std::string fileName)
 	{
 		const char* file = fileName.c_str();
-		Lava::TextureData textureData = Lava::TextureData();
 		textureData.data = stbi_load(file,
 			&textureData.width, &textureData.height, &textureData.normalChannelCount, 0);
 		if (textureData.data)
@@ -81,6 +81,6 @@ public:
 	{
 		Lava::TextureData texDat = loadTexture(mainTexturePath);
 		
-		return Lava::MeshRendererData(model, &texDat);
+		return Lava::MeshRendererData(model, texDat);
 	}
 };
