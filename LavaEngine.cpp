@@ -5,6 +5,7 @@
 #include "VertexData.cpp"
 #include "ShaderBank.cpp"
 #include "MeshRendererData.cpp"
+#include "MathManager.cpp"
 class LavaEngine {
 public:
 	static void bootstrap() {
@@ -46,17 +47,21 @@ public:
 		ShaderBank* bank = new ShaderBank("vertexShader.vp", "fragmentShader.fp");
 		bank->BindAttribute(0, "position");
 		bank->BindAttribute(1, "textureCoords");
-
+		bank->Prepare();
+		bank->GetAllUniformLocations();
 		//Lava::
 		
-		
+		float rotation = 0;
 		while (!display->isWindowClosed())
 		{
 			renderer->prepare();
 			bank->Activate();
+			bank->LoadTRSToBuffer(math_manager::CreateTRSMatrix(glm::vec3(glm::sin(rotation*0.05)*.8,0, 0),
+				glm::vec3(0,0,rotation), glm::vec3(1)));
 			renderer->render(&rendererData);
 			bank->Deactivate();
 			display->updateWindow();
+			rotation -= .01;
 		}
 		bank->Dispose();
 		display->destroyWindow();
