@@ -59,11 +59,18 @@ public:
 	void GetAllUniformLocations()
 	{
 		location_transformMatrix = GetUniformLocation("transformationMatrix");
+		location_MVPMatrix = GetUniformLocation("MVP");
 	}
 
 	void LoadTRSToBuffer(glm::mat4 matrix)
 	{
 		LoadToUniformBuffer(location_transformMatrix, matrix);
+	}
+
+	void LoadMVPToBuffer(glm::mat4 model,glm::mat4 view,glm::mat4 projection)
+	{
+		glm::mat4 mvp = projection * view * model;
+		LoadToUniformBuffer(location_MVPMatrix, mvp);
 	}
 	
 private:
@@ -73,6 +80,7 @@ private:
 	int fragmentShaderId;
 
 	int location_transformMatrix;
+	int location_MVPMatrix;
 
 	static int LoadShader(std::string shaderFileName, int shaderType)
 	{

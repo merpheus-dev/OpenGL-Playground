@@ -41,7 +41,7 @@ public:
 		
 		Lava::Model model = loader->loadModel(*vertex_data,*texture_coordinate ,*indice_data);
 
-		Lava::MeshRendererData rendererData = loader->loadRenderData(&model, "Assets/container.jpg");
+		Lava::MeshRendererData rendererData = loader->loadRenderData(&model, "Assets/e.jpg");
 		
 		Renderer* renderer = new Renderer();
 		ShaderBank* bank = new ShaderBank("vertexShader.vp", "fragmentShader.fp");
@@ -51,17 +51,47 @@ public:
 		bank->GetAllUniformLocations();
 		//Lava::
 		
-		float rotation = 0;
+		glm::vec3 position = glm::vec3(0);
+		glm::vec3 rotation = glm::vec3(0);
+		glm::mat4 modelMatrix;
+		glm::mat4 viewMatrix;
+		glm::mat4 projectionMatrix;
 		while (!display->isWindowClosed())
 		{
+			if (glfwGetKey(window,GLFW_KEY_RIGHT) == GLFW_PRESS)
+			{
+				position[0] -= 0.001f;
+			}
+			else if (glfwGetKey(window, GLFW_KEY_LEFT) == GLFW_PRESS) {
+				position[0] += 0.001f;
+			}
+
+			if (glfwGetKey(window, GLFW_KEY_UP) == GLFW_PRESS)
+			{
+				position[2] += 0.001f;
+			}
+			else if (glfwGetKey(window, GLFW_KEY_DOWN) == GLFW_PRESS) {
+				position[2] -= 0.001f;
+			}
+
+			if (glfwGetKey(window, GLFW_KEY_E) == GLFW_PRESS)
+			{
+				rotation[1] += 0.01f;
+			}
+			else if (glfwGetKey(window, GLFW_KEY_Q) == GLFW_PRESS) {
+				rotation[1] -= 0.01f;
+			}
+
 			renderer->prepare();
 			bank->Activate();
-			bank->LoadTRSToBuffer(math_manager::CreateTRSMatrix(glm::vec3(glm::sin(rotation*0.05)*.8,0, 0),
-				glm::vec3(0,0,rotation), glm::vec3(1)));
+			modelMatrix = math_manager::CreateTRSMatrix(position,rotation, glm::vec3(1));
+			projectionMatrix = glm::perspective(glm::radians(60.0f), 1.0f, 0.1f, 1000.0f);
+			viewMatrix = glm::lookAt(glm::vec3(0, 0, 3), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+			bank->LoadTRSToBuffer(modelMatrix);
+			bank->LoadMVPToBuffer(modelMatrix, viewMatrix, projectionMatrix);
 			renderer->render(&rendererData);
 			bank->Deactivate();
 			display->updateWindow();
-			rotation -= .01;
 		}
 		bank->Dispose();
 		display->destroyWindow();
